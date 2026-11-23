@@ -1,0 +1,17 @@
+services:
+  anythingllm:
+    image: mintplexlabs/anythingllm:latest
+    container_name: anythingllm-bangla
+    ports:
+      - "3001:3001"
+    environment:
+      # Storage path inside the container (STORAGE_LOCATION is the documented var).
+      - STORAGE_LOCATION=/app/server/storage
+      # Local Ollama on the same machine (run Ollama first, see ollama-bangla).
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - DISABLE_TELEMETRY=true
+    volumes:
+      - ./anythingllm-storage:/app/server/storage
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
